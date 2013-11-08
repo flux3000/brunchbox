@@ -1,0 +1,14 @@
+/* main layout and navigation */
+
+body {
+    font-family: 'Cabin', sans-serif;
+    background-color: rgb(226, 226, 226);
+    font-size: 13pt;
+}
+
+#map-canvas {
+    width: 30%; 
+    height: 300px;
+    margin: 0;
+    padding: 5px;
+}
