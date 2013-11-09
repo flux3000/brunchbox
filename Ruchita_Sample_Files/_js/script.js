@@ -1,20 +1,6 @@
 $(document).ready(function() {
 	init();
-  console.log("map");
-});
-
-var map;
-function initialize(lat, long, targetID) {
-    var mapOptions = {
-        zoom: 7,
-        center: new google.maps.LatLng(lat, long),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    map = new google.maps.Map(document.getElementById(targetID), mapOptions);
-}
-
-function init() {
-  //Geolocation
+    //Geolocation
 
     // try to get user's geo-location
     if (navigator.geolocation) {
@@ -42,6 +28,21 @@ function init() {
     
     }
 
+  console.log("map");
+});
+
+var map;
+function initialize(lat, long, targetID) {
+    var mapOptions = {
+        zoom: 7,
+        center: new google.maps.LatLng(lat, long),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById(targetID), mapOptions);
+}
+
+function init() {
+  
 }
 
 
