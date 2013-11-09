@@ -9,7 +9,9 @@
         <link rel="stylesheet" type="text/css" href="_css/reset.css" />
         <link rel="stylesheet" type="text/css" href="_css/style.css" />
         <link rel="stylesheet" href="_css/bootstrap.min.css">
-                <link rel="stylesheet" href="_css/bootstrap.css">
+        <link rel="stylesheet" href="_css/bootstrap-theme.css">
+        <link rel="stylesheet" href="_css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="_css/bootstrap.css">
 
         <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 
@@ -24,12 +26,35 @@
                      </div>
                 </div>
         </header>   
+
         <div class="container">
-	       <div class="span4">
-  		        <div id="map-div">
+
+	       <div class="row well">
+            <div class="col-md-10">
+                <div id="map-canvas" class="thumbnail">
                 </div>
             </div>
+            <div class="col-md-2 well-sm">
+                <p>You are here $pos coord</p>
+                
+            </div>
+           </div><!--row-->
+            <div class="row well">
+                <div class="btn-group">
+  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search">Search</span>Within 1 mile</button>
+  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search">Search</span>Within 3 miles</button>
+  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search">Search</span>Within 5 miles</button>
+</div>
+                   
+             
+                
+                 
+
+                
+            </div><!--row-->
             <div class="span4">
+                <h4>Data Viz</h4>
+
                 <svg id="viz" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 </svg>
             </div>
@@ -39,6 +64,7 @@
 	=============================--> 
 	   <script src="_js/jquery-1.10.2.min.js"></script>
         <script src="_js/bootstrap.min.js"></script>
+           <script src="_js/bootstrap.js"></script>
         <script src="_js/script.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&key="></script>
             <script src="_js/geoPosition.js"></script>
