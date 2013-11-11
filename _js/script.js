@@ -16,9 +16,15 @@ $(document).ready(function() {
           var mylong = crd.longitude;
           mylatlong = [mylat, mylong];
 
-          $("#mylatlong").html(mylat + ", " + mylong);
+			var testlat = 37.8713;
+			var testlong = -122.2585;
+			testlatlong = [testlat, testlong];          
 
-          google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
+          //$("#mylatlong").html(mylat + ", " + mylong);
+          $("#mylatlong").html(testlat + ", " + testlong);
+
+          //google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
+          google.maps.event.addDomListener(window, 'load', mapsInitialize(testlatlong[0], testlatlong[1], "map-canvas"));    
         
         };
 
@@ -45,8 +51,9 @@ $(document).ready(function() {
 		  }
 		};
 
-	    var testlat = 37.8621574;
-	    var testlong = -122.25017369999999;
+
+	    var testlat = 37.8713;
+	    var testlong = -122.2585;
 /*	    var testlat = 37.7697;
 	    var testlong = -122.4769;*/
 	    var distance = 4828; // 3 miles
