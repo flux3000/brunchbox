@@ -2,30 +2,28 @@ $(document).ready(function() {
 	init();
  
     /////////// Geolocation stuff ///////////
-    
+    var mylat;
+    var mylong;
+
     if (navigator.geolocation) {
         var options = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
         };
 
-        function success(pos) {
-          var crd = pos.coords;
-          var mylat = crd.latitude;
-          var mylong = crd.longitude;
-          mylatlong = [mylat, mylong];
+		function success(pos) {
+			var crd = pos.coords;
+			
+			
+			mylat = crd.latitude;
+			mylong = crd.longitude;
+			mylatlong = [mylat, mylong];
+			       
 
-			var testlat = 37.8713;
-			var testlong = -122.2585;
-			testlatlong = [testlat, testlong];          
-
-          //$("#mylatlong").html(mylat + ", " + mylong);
-          $("#mylatlong").html(testlat + ", " + testlong);
-
-          //google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
-          google.maps.event.addDomListener(window, 'load', mapsInitialize(testlatlong[0], testlatlong[1], "map-canvas"));    
-        
+			$("#mylatlong").html(mylat + ", " + mylong);
+			google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
+			       
         };
 
         function error(err) {
@@ -51,14 +49,25 @@ $(document).ready(function() {
 		  }
 		};
 
+		//TEST VARIABLES - SOUTH HALL			
+		//mylat = 37.8713;
+		//mylong = -122.2585;
 
-	    var testlat = 37.8713;
-	    var testlong = -122.2585;
-/*	    var testlat = 37.7697;
-	    var testlong = -122.4769;*/
-	    var distance = 4828; // 3 miles
-	    //var distance = 30000; // testing
-	    //var location = "2816 Derby Street Berkeley, CA 94705"
+		//TEST VARIABLES - NASHVILLE HOUSE
+		//mylat = 36.127042;
+		//mylong = -86.813706;
+
+		var distance;
+		if ($(this).hasClass("radius-1")) {
+			distance = 1609; // 1 mile
+		} else if ($(this).hasClass("radius-3")) {
+	    	distance = 4828; // 3 miles
+		} else if ($(this).hasClass("radius-5")) {
+	    	distance = 8046; // 5 miles
+	    } else {	    	
+	    	console.log("ERROR: DISTANCE NOT SET");
+	    }
+	    //var distance = 40000; // testing
 
 		var accessor = {
 		  consumerSecret: auth.consumerSecret,
@@ -67,12 +76,10 @@ $(document).ready(function() {
 
 		parameters = [];
 
-		parameters.push(['ll', testlat+','+testlong]);
-		//parameters.push(['location', location]);
-
+		parameters.push(['ll', mylat+','+mylong]);
 		parameters.push(['radius_filter', distance]);
-		parameters.push(['category_filter', "restaurants"]);
-		parameters.push(['sort', 2]);
+		parameters.push(['category_filter', "breakfast_brunch"]);
+		parameters.push(['sort', 2]); // 1=distance, 2=highest rating
 
 		parameters.push(['callback', 'cb']);
 		parameters.push(['oauth_consumer_key', auth.consumerKey]);
@@ -85,8 +92,6 @@ $(document).ready(function() {
 		  'method': 'GET',
 		  'parameters': parameters 
 		};
-		var firstparameters = parameters;
-		//console.log(firstparameters);
 
 		OAuth.setTimestampAndNonce(message);
 		OAuth.SignatureMethod.sign(message, accessor);
@@ -155,9 +160,12 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	// sort results by distance, lowest first
-	myresults.sort(function(a,b) {
-	  return parseFloat(a.distance,10) - parseFloat(b.distance,10);
-	});
+	var sort = 1; // Set to 0 to see how Yelp is ordering it
+	if (sort){
+		myresults.sort(function(a,b) {
+		  return parseFloat(a.distance,10) - parseFloat(b.distance,10);
+		});
+	}
 
 	for (var j = 0; j < myresults.length; j++) {
 		$("#business-results").append('<li>'+(j+1)+'. '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</li>');
@@ -182,7 +190,6 @@ function mapsInitialize(lat, long, targetID) {
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
-        title: 'Hello World!'
     });
 }
 
