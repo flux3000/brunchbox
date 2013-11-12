@@ -29,24 +29,22 @@
         <div class="container">
 
 	       <div class="row well">
-            <div class="col-md-10">
-                <div id="map-canvas" class="thumbnail">
-                </div>
-            </div>
-            <div class="col-md-2 well-sm">
-                Your coordinates: <span id="mylatlong"></span>   
-            </div>
+
+                <!--<div id="map-canvas" class="thumbnail">
+                </div>-->
+                <div id="distance-form">
+                        Your coordinates: <span id="mylatlong"></span>
+                        <br>
+                        <div id="range-slider">
+                            <input type="range" id="radius" name="radius" min=0 max=5 value=2.5 step=0.1>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>  Find Brunch Spots Within <span id="range-preview-text">2.5</span> miles              
+                </div>                  
+
            </div><!--row-->
-            <div class="row well">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary radius-1"><span class="glyphicon glyphicon-search">Search</span>Within 1 mile</button>
-                  <button type="button" class="btn btn-primary radius-3"><span class="glyphicon glyphicon-search">Search</span>Within 3 miles</button>
-                  <button type="button" class="btn btn-primary radius-5"><span class="glyphicon glyphicon-search">Search</span>Within 5 miles</button>
-                </div>                 
-            </div><!--row-->
 
-
-            <div class="span4" id="business-chart">
+            <div id="business-chart">
                 <svg id="visualization" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 </svg>
             </div>
@@ -58,7 +56,7 @@
                 </ol>
             </div>
             
-                        
+
             <div id="business-popup"></div>
         </div>
 

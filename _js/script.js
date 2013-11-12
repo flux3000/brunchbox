@@ -2,11 +2,15 @@
 
 $(document).ready(function() {
 	//init();
+
+	$('#radius').change(function() {
+		var rangeval = parseFloat($(this).val()).toFixed(1);
+		$("#range-preview-text").html(rangeval);
+	});
+
     /////////// Geolocation stuff ///////////
     var mylat;
     var mylong;
-
-
     if (navigator.geolocation) {
         var options = {
 			enableHighAccuracy: true,
@@ -52,25 +56,14 @@ $(document).ready(function() {
 		  }
 		};
 
-		//TEST VARIABLES - SOUTH HALL			
-		mylat = 37.8713;
-		mylong = -122.2585;
+		//TEST VARIABLES - SOUTH HALL
+		if (mylat != '') {			
+			mylat = 37.8713;
+			mylong = -122.2585;
+		}
 
-		//TEST VARIABLES - NASHVILLE HOUSE
-		//mylat = 36.127042;
-		//mylong = -86.813706;
-
-		var distance;
-		if ($(this).hasClass("radius-1")) {
-			distance = 1609; // 1 mile
-		} else if ($(this).hasClass("radius-3")) {
-	    	distance = 4828; // 3 miles
-		} else if ($(this).hasClass("radius-5")) {
-	    	distance = 8046; // 5 miles
-	    } else {	    	
-	    	console.log("ERROR: DISTANCE NOT SET");
-	    }
-	    //var distance = 40000; // testing
+		var distance_miles = $('#radius').val();
+		var distance_meters = 1609.34 * distance_miles;
 
 		var accessor = {
 		  consumerSecret: auth.consumerSecret,
@@ -80,7 +73,7 @@ $(document).ready(function() {
 		parameters = [];
 
 		parameters.push(['ll', mylat+','+mylong]);
-		parameters.push(['radius_filter', distance]);
+		parameters.push(['radius_filter', distance_meters]);
 		parameters.push(['category_filter', "breakfast_brunch"]);
 		parameters.push(['sort', 2]); // 1=distance, 2=highest rating
 
@@ -138,40 +131,7 @@ $(document).ready(function() {
 		  }
 	    });
 
-	
-
 	});
-
-
-	// hover event interaction
-	$("circle").on("mouseenter", function() {
-
-		var value = $(this).attr("name");
-
-		// change the text, show the tooltip, and fade out the pie section slightly
-		$("#business-popup").text(value).fadeIn(50);
-
-		$(this).animate({"opacity":.8}, 100);
-
-	}).on("mouseleave", function() {
-		// hide the tooltip, and fade the pie section back in
-
-		$("#business-popup").fadeOut(50);
-
-		$(this).animate({"opacity":1}, 100);
-
-	}).on("mousemove", function(e) {
-
-		var parentOffset = $(this).parent().offset();
-
-		// move the tooltip as the mouse moves around
-		$("#business-popup").show()
-        	.offset({
-	        	"left": e.pageX + 10,
-	        	"top": e.pageY + 10
-	        });
-	});
-
 
 });
 
@@ -179,33 +139,21 @@ function init() {
 
 }
 
-function makeCircle() {
-
-var svgContainer = d3.select("body").append("svg")
-	.attr("width", 200)
-	.attr("height", 200);
-
-var circle = svgContainer.append("circle")
-	.attr("cx", 30)
-	.attr("cy", 30)
-	.attr("r", 20);
-}
-
 function createChart(businesses) {
 
 	console.log(businesses);
 
 	// set up the svg 	
-	var w = 1140
-	var h = 600
-	var padding = 30
+	var w = 900
+	var h = 500
+	var padding = 20
 
 	var col_count = 10
 	var row_count = 4
 	//var col_width = (w-padding) / col_count
 	//var row_height = (h-padding) / row_count
-	var col_width = 100
-	var row_height = 100
+	var col_width = 80
+	var row_height = 80
 
 	//viz.attr("width", w).attr("height", h)
 
@@ -259,9 +207,6 @@ function createChart(businesses) {
 		.attr("name", function (d) { return d.name; })
 		.attr("class", "circle")
 		.style("fill", function(d) { return d.color; });
-
-
-	
 
 }
 
