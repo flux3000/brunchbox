@@ -35,3 +35,14 @@ body {
     height:150px; 
     width:150px;
 }
+
+svg {
+    margin: 0 auto;
+}
+
+svg circle{
+    stroke: black;
+    stroke-width: 1;
+    opacity: 0.8;
+    cursor: pointer;
+}

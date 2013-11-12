@@ -1,9 +1,11 @@
+//var mybusinesses;
+
 $(document).ready(function() {
-	init();
- 
+	//init();
     /////////// Geolocation stuff ///////////
     var mylat;
     var mylong;
+
 
     if (navigator.geolocation) {
         var options = {
@@ -34,9 +36,10 @@ $(document).ready(function() {
     }  
 
     // Get Yelp Data
-	$('.btn-primary').click(function() {
-
+	$('.btn-primary').click(function(e) {
+		e.preventDefault();
 		$("#business-results").empty();
+		$("#visualization").fadeOut().empty();
 
 		var auth = { 
 		  consumerKey: "jyd8C9Il7EuLc5XIJtNzbQ", 
@@ -50,8 +53,8 @@ $(document).ready(function() {
 		};
 
 		//TEST VARIABLES - SOUTH HALL			
-		//mylat = 37.8713;
-		//mylong = -122.2585;
+		mylat = 37.8713;
+		mylong = -122.2585;
 
 		//TEST VARIABLES - NASHVILLE HOUSE
 		//mylat = 36.127042;
@@ -135,13 +138,133 @@ $(document).ready(function() {
 		  }
 	    });
 
+	
+
 	});
+
+
+	// hover event interaction
+	$("circle").on("mouseenter", function() {
+
+		var value = $(this).attr("name");
+
+		// change the text, show the tooltip, and fade out the pie section slightly
+		$("#business-popup").text(value).fadeIn(50);
+
+		$(this).animate({"opacity":.8}, 100);
+
+	}).on("mouseleave", function() {
+		// hide the tooltip, and fade the pie section back in
+
+		$("#business-popup").fadeOut(50);
+
+		$(this).animate({"opacity":1}, 100);
+
+	}).on("mousemove", function(e) {
+
+		var parentOffset = $(this).parent().offset();
+
+		// move the tooltip as the mouse moves around
+		$("#business-popup").show()
+        	.offset({
+	        	"left": e.pageX + 10,
+	        	"top": e.pageY + 10
+	        });
+	});
+
 
 });
 
 function init() {
 
 }
+
+function makeCircle() {
+
+var svgContainer = d3.select("body").append("svg")
+	.attr("width", 200)
+	.attr("height", 200);
+
+var circle = svgContainer.append("circle")
+	.attr("cx", 30)
+	.attr("cy", 30)
+	.attr("r", 20);
+}
+
+function createChart(businesses) {
+
+	console.log(businesses);
+
+	// set up the svg 	
+	var w = 1140
+	var h = 600
+	var padding = 30
+
+	var col_count = 10
+	var row_count = 4
+	//var col_width = (w-padding) / col_count
+	//var row_height = (h-padding) / row_count
+	var col_width = 100
+	var row_height = 100
+
+	//viz.attr("width", w).attr("height", h)
+
+    // Make JSON
+	myBusinesses = [];
+	col_pos = 1;
+	row_pos = 1;
+    for (var i = 0; i < businesses.length; i++) {
+
+    	thisBusiness = {};
+    	thisBusiness.name = businesses[i]["name"];
+    	thisBusiness.rating = businesses[i]["rating"];
+    	thisBusiness.distance = businesses[i]["distance"];
+
+    	// Assign column and row positions (x and y coords)
+    	if (col_pos > col_count) { 
+    		// after we reach col_count (e.g. 10), we will set col_pos back to 1 and increment row_pos.
+    		col_pos = 1;
+    		row_pos++;
+    	} 
+		thisBusiness.x_coord = (col_pos * col_width);
+		thisBusiness.y_coord = (row_pos * row_height);
+    	col_pos++;
+
+    	// Calculate circle radius - based on distance
+
+    	thisBusiness.radius = (24 - thisBusiness.distance*3);
+
+    	// Calculate circle color - based on rating
+    	var hue = Math.floor(thisBusiness.rating * 120 / 5);
+    	thisBusiness.color = "hsla(" + hue + ", 100%, 50%, 1)";
+
+    	myBusinesses.push(thisBusiness);
+
+    }
+	
+	var svgContainer = d3.select("#visualization");
+	svgContainer.attr("width", w).attr("height", h)
+
+	//var circles = svgContainer.selectAll("circle")
+	var circles = svgContainer.append("g")
+		.selectAll("circle")
+		.data(myBusinesses)
+		.enter()
+		.append("circle");
+
+	var circleAttributes = circles
+		.attr("cx", function (d) { return d.x_coord; })
+		.attr("cy", function (d) { return d.y_coord; })
+		.attr("r", function (d) { return d.radius; })
+		.attr("name", function (d) { return d.name; })
+		.attr("class", "circle")
+		.style("fill", function(d) { return d.color; });
+
+
+	
+
+}
+
 
 function returnBusinesses(businesses) {
 	//console.log(businesses);
@@ -155,10 +278,7 @@ function returnBusinesses(businesses) {
 		    myresults.push(this_result);
 		}
 	}
-	showBusinesses(myresults);
-}
 
-function showBusinesses(myresults){
 	// sort results by distance, lowest first
 	var sort = 1; // Set to 0 to see how Yelp is ordering it
 	if (sort){
@@ -167,6 +287,12 @@ function showBusinesses(myresults){
 		});
 	}
 
+	showBusinesses(myresults);
+	createChart(myresults);
+	$("#visualization").fadeIn();
+}
+
+function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
 		$("#business-results").append('<li>'+(j+1)+'. '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</li>');
 	}
@@ -192,4 +318,5 @@ function mapsInitialize(lat, long, targetID) {
         map: map,
     });
 }
+
 
