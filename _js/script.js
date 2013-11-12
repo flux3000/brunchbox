@@ -187,7 +187,6 @@ function createChart(businesses) {
     	thisBusiness.radius = (24 - thisBusiness.distance*3);
 
     	// Calculate circle color - based on rating
-    	//var hue = Math.floor(thisBusiness.rating * 120 / 5);
     	var hue = Math.floor(thisBusiness.rating * 120 / 5);
     	var multiplier = Math.pow((5 - thisBusiness.rating),2);
     	var intensity = (100 - (Math.round(multiplier * 2)/2) * 10);
