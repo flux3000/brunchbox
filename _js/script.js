@@ -147,7 +147,6 @@ function init() {
 
 function createChart(businesses) {
 
-
 	// set up the svg 	
 	var w = 900
 	var h = 500
@@ -225,7 +224,7 @@ function createChart(businesses) {
 							"top": $(this).position().top - 100
 						})
 						// TO-DO - Enrich the text that is being returned in the pop-up
-						.text($(this).attr("name")+" - "+$(this).attr("distance")+" miles away"+" - "+"Avg Rating: "+$(this).attr("rating")+" Stars")
+						.html($(this).attr("name")+"<br><br>"+$(this).attr("distance")+" miles away"+"<br>"+"Avg Rating: "+$(this).attr("rating")+" Stars")
 						.fadeIn(50);
 			})
 						
@@ -235,8 +234,12 @@ function createChart(businesses) {
 					.attr("r", d.radius)
 					.attr("opacity", 1);
 					$("#business-popup").fadeOut(50);
-			})
+			});
 
+	circles.append("text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .text("text");
 }
 
 function returnBusinesses(businesses) {
