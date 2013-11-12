@@ -131,17 +131,22 @@ $(document).ready(function() {
 		  }
 	    });
 
+
 	});
+
+
 
 });
 
 function init() {
 
+
 }
+
+
 
 function createChart(businesses) {
 
-	console.log(businesses);
 
 	// set up the svg 	
 	var w = 900
@@ -193,7 +198,6 @@ function createChart(businesses) {
 	var svgContainer = d3.select("#visualization");
 	svgContainer.attr("width", w).attr("height", h)
 
-	//var circles = svgContainer.selectAll("circle")
 	var circles = svgContainer.append("g")
 		.selectAll("circle")
 		.data(myBusinesses)
@@ -205,11 +209,35 @@ function createChart(businesses) {
 		.attr("cy", function (d) { return d.y_coord; })
 		.attr("r", function (d) { return d.radius; })
 		.attr("name", function (d) { return d.name; })
+		.attr("distance", function (d) { return d.distance; })
+		.attr("rating", function (d) { return d.rating; })
 		.attr("class", "circle")
-		.style("fill", function(d) { return d.color; });
+		.style("fill", function(d) { return d.color; })
+		.on("mouseenter", function(d) {
+
+				d3.select(this)
+					.transition().duration(200)
+					.attr("r", d.radius+10)
+					.attr("opacity", .6);
+					$("#business-popup")
+						.css({
+							"left": $(this).position().left + 20,
+							"top": $(this).position().top - 100
+						})
+						// TO-DO - Enrich the text that is being returned in the pop-up
+						.text($(this).attr("name")+" - "+$(this).attr("distance")+" miles away"+" - "+"Avg Rating: "+$(this).attr("rating")+" Stars")
+						.fadeIn(50);
+			})
+						
+		.on("mouseleave", function(d) {
+				d3.select(this)
+					.transition().duration(200)
+					.attr("r", d.radius)
+					.attr("opacity", 1);
+					$("#business-popup").fadeOut(50);
+			})
 
 }
-
 
 function returnBusinesses(businesses) {
 	//console.log(businesses);
