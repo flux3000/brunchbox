@@ -37,3 +37,8 @@ Potential future enhancements
 - Add ability to encode your own Yelp memex: Pull data from facebook/foursquare checkins to build a personalized memex that can be mapped with the local data.
 
 
+References
+------
+Logo *.svg courtesy:  https://github.com/somerandomdude/Iconic
+
+
