@@ -48,5 +48,6 @@ Icons are not correctly overlayed on each individual bubble.
 
 References
 ------
-Tagline courtesy: www.thevintagemom.com
+Logo *.svg courtesy:  https://github.com/somerandomdude/Iconic
+
 
