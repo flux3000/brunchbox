@@ -25,10 +25,11 @@ $(document).ready(function() {
 			mylat = crd.latitude;
 			mylong = crd.longitude;
 			mylatlong = [mylat, mylong];
-			       
 
-			$("#mylatlong").html(mylat + ", " + mylong);
-			google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
+            // get human-readable address from the lat/long coordinates using Google's reverse geocoding API
+            codeLatLng(mylat, mylong)
+
+            //google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
 			       
         };
 
@@ -57,7 +58,8 @@ $(document).ready(function() {
 		};
 
 		//TEST VARIABLES - SOUTH HALL
-		if (mylat != '') {			
+		if (mylat == '') {
+			console.log("lat/long not set - using default of South Hall, UC Berkeley");			
 			mylat = 37.8713;
 			mylong = -122.2585;
 		}
@@ -171,7 +173,7 @@ function createChart(businesses) {
     	thisBusiness.name = businesses[i]["name"];
     	thisBusiness.rating = businesses[i]["rating"];
     	thisBusiness.distance = businesses[i]["distance"];
-    	thisBusiness.location.display_address = businesses[i]["location.display_address"];
+    	thisBusiness.location = businesses[i]["location"];
     	thisBusiness.image_url = businesses[i]["image_url"];
     	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
 
@@ -228,7 +230,7 @@ function createChart(businesses) {
 						.css({
 							"left": $(this).position().left + 20,
 							"top": $(this).position().top - 100,
-							"height":150
+							//"height":150
 						})
 						// TO-DO - Enrich the text that is being returned in the pop-up
 						.html('<p>'+ $(this).attr("name")+'<br/><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><span class="glyphicon glyphicon-star"></span>'+' Avg Rating: '+$(this).attr("rating")+ ' Stars</p>')
@@ -298,4 +300,21 @@ function mapsInitialize(lat, long, targetID) {
     });
 }
 
+// google geolocation code - to get address from lat/long coordinates
+var geocoder;
+var myaddress;
+function codeLatLng(mylat, mylong) {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(mylat, mylong);
+    geocoder.geocode({'latLng': latlng}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+                myaddress = results[0].formatted_address;
+                $("#myaddress").html("Your (approximate) location:<br><span style='font-weight:bold;'>" + myaddress + "</span>");
+            }
+        } else {
+            $("#myaddress").html("Your coordinates:<br><span style='font-weight:bold;'>" + mylat + ", " + mylong + "</span>");
+        }
+    });
+}
 

@@ -17,6 +17,9 @@ body {
     box-shadow: 3px 3px 2px #222;
 }
 
+#myaddress {
+    padding: 12px;
+}
 
 #title {
     font-size: 24pt;
@@ -112,7 +115,7 @@ svg circle{
     cursor: pointer;
 }
 
-#business-popup:before{
+/*#business-popup:before{
     content: ' ';
     display: block;
     position: absolute;
@@ -130,5 +133,5 @@ svg circle{
     transform: rotate(45deg);
      -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
-}
+}*/
 
