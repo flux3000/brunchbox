@@ -123,7 +123,7 @@ $(document).ready(function() {
 			  'jsonpCallback': 'cb',
 			  'success': function(newdata, textStats, XMLHttpRequest) {
 			    var mybusinesses = $.merge(data.businesses, newdata.businesses);
-			    //console.log(mybusinesses);			    
+			    console.log(mybusinesses);			    
 			    returnBusinesses(mybusinesses);
 
 			  }
@@ -164,6 +164,10 @@ function createChart(businesses) {
     	thisBusiness.name = businesses[i]["name"];
     	thisBusiness.rating = businesses[i]["rating"];
     	thisBusiness.distance = businesses[i]["distance"];
+    	thisBusiness.location.display_address = businesses[i]["location.display_address"];
+    	thisBusiness.distance = businesses[i]["distance"];
+    	thisBusiness.image_url = businesses[i]["image_url"];
+    	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
 
     	// Assign column and row positions (x and y coords)
     	if (col_pos > col_count) { 
@@ -177,7 +181,7 @@ function createChart(businesses) {
 
     	// Calculate circle radius - based on distance
 
-    	thisBusiness.radius = (24 - thisBusiness.distance*3);
+    	thisBusiness.radius = (24 - thisBusiness.distance*3.5);
 
     	// Calculate circle color - based on rating
     	var hue = Math.floor(thisBusiness.rating * 120 / 5);
@@ -231,11 +235,6 @@ function createChart(businesses) {
 					.attr("opacity", 1);
 					$("#business-popup").fadeOut(50);
 			});
-
-	circles.append("text")
-      .attr("dx", 12)
-      .attr("dy", ".35em")
-      .text("text");
 }
 
 function returnBusinesses(businesses) {
