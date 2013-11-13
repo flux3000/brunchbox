@@ -7,11 +7,14 @@
 
         <!-- link to css files -->
         <link rel="stylesheet" type="text/css" href="_css/reset.css" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="_css/style.css" />
         <link rel="stylesheet" href="_css/bootstrap.min.css">
         <link rel="stylesheet" href="_css/bootstrap-theme.css">
         <link rel="stylesheet" href="_css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="_css/bootstrap.css">
+        <link rel="stylesheet" href="_css/hint.min.css">
+
 
         <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 
@@ -43,21 +46,28 @@
                 </div>                  
 
            </div><!--row-->
-
+           
+           <div class="row-fluid">
             <div id="business-chart">
                 <svg id="visualization" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 </svg>
             </div>
+            </div><!--row-->
 
 
             <!-- temporary div to display results in list form -->
+            <div class="row-fluid">
             <div id="content">
-                <ol id="business-results">
+                <ol id="business-results" class="nav nav-stacked">
                 </ol>
             </div>
-            
+        </div>
+            <div id="business-popup">
+            </div>
 
-            <div id="business-popup"></div>
+
+
+            
         </div>
 
 <!-- Load JS here for greater good 
