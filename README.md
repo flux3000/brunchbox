@@ -1,13 +1,16 @@
-Brunchbox - Support your local businesses that rock!
+Brunchbox 
 =============
+Support your local businesses that rock!
+-------
 
 UC Berkeley IO Lab Project 3 - Fall 2013
 -----------
 Team members:
-Ryan Baker: Wizard of light bulb moments with D3, API Demi-God 
-Brian Murphy: D3 Sensei, UX Overlord
-Ruchita Rathi: UI Person, Warrior in the D3 land
-Ashwin Chandak: Logistics
+
+1. Ryan Baker: Wizard of light bulb moments with D3, API Demi-God 
+2. Brian Murphy: D3 Sensei, UX Overlord
+3. Ruchita Rathi: UI Person, Warrior in the D3 land
+4. Ashwin Chandak: Logistics
 
 
 Introduction
