@@ -171,6 +171,9 @@ function createChart(businesses) {
     	thisBusiness.name = businesses[i]["name"];
     	thisBusiness.rating = businesses[i]["rating"];
     	thisBusiness.distance = businesses[i]["distance"];
+    	thisBusiness.location.display_address = businesses[i]["location.display_address"];
+    	thisBusiness.image_url = businesses[i]["image_url"];
+    	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
 
     	// Assign column and row positions (x and y coords)
     	if (col_pos > col_count) { 
