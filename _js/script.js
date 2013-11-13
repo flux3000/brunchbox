@@ -135,11 +135,14 @@ $(document).ready(function() {
 	});
 
 
+
 });
 
 function init() {
 
+
 }
+
 
 
 function createChart(businesses) {
@@ -212,7 +215,6 @@ function createChart(businesses) {
 		.attr("rating", function (d) { return d.rating; })
 		.attr("class", "circle")
 		.style("fill", function(d) { return d.color; })
-		.text(function(d){return "blah"})
 		.on("mouseenter", function(d) {
 
 				d3.select(this)
@@ -222,14 +224,11 @@ function createChart(businesses) {
 					$("#business-popup")
 						.css({
 							"left": $(this).position().left + 20,
-							"top": $(this).position().top - 100,
-							"height":150
-							})
-
+							"top": $(this).position().top - 100
+						})
 						// TO-DO - Enrich the text that is being returned in the pop-up
-						.html('<p>'+ $(this).attr("name")+'<br/><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><span class="glyphicon glyphicon-star"></span>'+' Avg Rating: '+$(this).attr("rating")+ ' Stars</p>')
-						
-						.fadeIn(300);
+						.html($(this).attr("name")+"<br><br>"+$(this).attr("distance")+" miles away"+"<br>"+"Avg Rating: "+$(this).attr("rating")+" Stars")
+						.fadeIn(50);
 			})
 						
 		.on("mouseleave", function(d) {
@@ -274,7 +273,7 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
-		$("#business-results").append('<li><a href="#"><span class="glyphicon glyphicon-cutlery"></span> '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</a></li>');
+		$("#business-results").append('<li>'+(j+1)+'. '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</li>');
 	}
 	$("#business-results").append('<li>-----------------</li>');	
 }
