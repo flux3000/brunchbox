@@ -35,8 +35,6 @@ $(document).ready(function() {
           console.warn('ERROR(' + err.code + '): ' + err.message);
         };       
 
-
-
         navigator.geolocation.getCurrentPosition(success,error,options);       
     }  
 
@@ -58,7 +56,8 @@ $(document).ready(function() {
 		};
 
 		//TEST VARIABLES - SOUTH HALL
-		if (mylat != '') {			
+		if (mylat == '') {
+			console.log("lat/long not set - using default of South Hall, UC Berkeley");			
 			mylat = 37.8713;
 			mylong = -122.2585;
 		}
