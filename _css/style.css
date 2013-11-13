@@ -89,6 +89,7 @@ body {
 #business-popup .text{
     float: left;
     width: 200px;
+    padding: 6px;
 }
 
 fieldset{
