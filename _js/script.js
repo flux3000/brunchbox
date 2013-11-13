@@ -154,7 +154,6 @@ function createChart(businesses) {
     	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
     	thisBusiness.url = businesses[i]["url"];
 
-
     	console.log(thisBusiness);
 
     	// Assign column and row positions (x and y coords)
@@ -168,7 +167,6 @@ function createChart(businesses) {
     	col_pos++;
 
     	// Calculate circle radius - based on distance
-
     	thisBusiness.radius = (28 - thisBusiness.distance*4);
 
     	// Calculate circle color - based on rating
@@ -233,14 +231,6 @@ function createChart(businesses) {
 		.on("click", function(d) {
 			window.open($(this).attr("url"));
 			});
-
-	//Trying to overlay icons on each bubble 	
-	circles.append("image")
-	  .attr("xlink:href", "https://github.com/favicon.ico")
-	  .attr("x", -8)
-	  .attr("y", -8)
-	  .attr("width", 16)
-	  .attr("height", 16);
 }
 
 function returnBusinesses(businesses) {
@@ -263,7 +253,7 @@ function returnBusinesses(businesses) {
 	}
 
 	// sort results by distance, lowest first
-	var sort = 1; // Set to 0 to see how Yelp is ordering it
+	var sort = 1; // Set to 0 to see how Yelp is ordering it (DEBUG)
 	if (sort){
 		myresults.sort(function(a,b) {
 		  return parseFloat(a.distance,10) - parseFloat(b.distance,10);
@@ -282,26 +272,6 @@ function showBusinesses(myresults){
 	}
 	$("#business-results").append('<li>-----------------</li>');	
 }
-
-/*// google maps code
-var map;
-function mapsInitialize(lat, long, targetID) {
-    var myLatlng = new google.maps.LatLng(lat, long);
-    
-    var mapOptions = {
-    	zoom: 14,
-    	center: myLatlng,
-    	mapTypeId: google.maps.MapTypeId.ROADMAP   
-    };
-    
-    map = new google.maps.Map(document.getElementById(targetID), mapOptions);
-    
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-    });
-}
-*/
 // google geolocation code - to get address from lat/long coordinates
 var geocoder;
 var myaddress;

@@ -23,6 +23,7 @@ BrunchBox is geared toward those who need a quick and simple way to keep track o
 And by "relevant businesses", we of course mean the most relevant meal to one's happiness, brunch. BrunchBox takes a user's location and uses the Yelp API to filter out all the brunch areas near the user. Depending on how far the user wants to travel, she can reduce or increase the distance away to show results from between 0.1 and 5 miles.
 
 Technologies used
+------------
 HTML, CSS, jQuery, Javascript, Google Geolocation API, Google Geocoding API, Yelp API
 
 
