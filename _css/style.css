@@ -30,10 +30,6 @@ body {
     padding: 12px;
 }
 
-#myaddress {
-    padding: 12px;
-}
-
 #map-canvas {
     display:block; 
     height:150px; 
