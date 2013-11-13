@@ -234,6 +234,7 @@ function createChart(businesses) {
 			window.open($(this).attr("url"));
 			});
 
+	//Trying to overlay icons on each bubble 	
 	circles.append("image")
 	  .attr("xlink:href", "https://github.com/favicon.ico")
 	  .attr("x", -8)
