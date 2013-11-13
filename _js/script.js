@@ -224,11 +224,12 @@ function createChart(businesses) {
 					$("#business-popup")
 						.css({
 							"left": $(this).position().left + 20,
-							"top": $(this).position().top - 100
+							"top": $(this).position().top - 100,
+							"height":150
 						})
 						// TO-DO - Enrich the text that is being returned in the pop-up
-						.html($(this).attr("name")+"<br><br>"+$(this).attr("distance")+" miles away"+"<br>"+"Avg Rating: "+$(this).attr("rating")+" Stars")
-						.fadeIn(50);
+						.html('<p>'+ $(this).attr("name")+'<br/><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><span class="glyphicon glyphicon-star"></span>'+' Avg Rating: '+$(this).attr("rating")+ ' Stars</p>')
+						.fadeIn(300);
 			})
 						
 		.on("mouseleave", function(d) {
