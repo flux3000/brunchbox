@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="_css/bootstrap-theme.css">
         <link rel="stylesheet" href="_css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="_css/bootstrap.css">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
 
         <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 
@@ -21,7 +23,7 @@
         <header>
                 <div class="row">
                     <div class="well">
-                        <h1>BrunchBox!</h1>
+                        <h1>Yelp Data Viz</h1>
                      </div>
                 </div>
         </header>   
@@ -33,28 +35,32 @@
                 <!--<div id="map-canvas" class="thumbnail">
                 </div>-->
                 <div id="distance-form">
-
-                        <div id="myaddress">[Calculating location...]</div>
+                        Your coordinates: <span id="mylatlong"></span>
+                        <br>
                         <div id="range-slider">
                             <input type="range" id="radius" name="radius" min=0.1 max=5 value=2.5 step=0.1>
                         </div>
                         <br>
-                        <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-search"></span>  Find Brunch Spots Within <span id="range-preview-text">2.5</span> miles              
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span>  Find Brunch Spots Within <span id="range-preview-text">2.5</span> miles              
                 </div>                  
 
            </div><!--row-->
 
+            <div class="row-fluid">
             <div id="business-chart">
                 <svg id="visualization" xmlns="http://www.w3.org/2000/svg" version="1.1">
                 </svg>
             </div>
+            </div><!--row-->
 
 
             <!-- temporary div to display results in list form -->
+            <div class="row-fluid">
             <div id="content">
-                <ol id="business-results">
+                <ol id="business-results" class="nav nav-stacked">
                 </ol>
             </div>
+            </div><!--row-->
             
 
             <div id="business-popup"></div>

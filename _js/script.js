@@ -1,6 +1,7 @@
 //var mybusinesses;
 
 $(document).ready(function() {
+	//init();
 
 	$('#radius').change(function() {
 		var rangeval = parseFloat($(this).val()).toFixed(1);
@@ -19,16 +20,16 @@ $(document).ready(function() {
 
 		function success(pos) {
 			var crd = pos.coords;
-						
+			
+			
 			mylat = crd.latitude;
 			mylong = crd.longitude;
 			mylatlong = [mylat, mylong];
+			       
 
-			// get human-readable address from the lat/long coordinates using Google's reverse geocoding API
-			codeLatLng(mylat, mylong)
-
-			//google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
-
+			$("#mylatlong").html(mylat + ", " + mylong);
+			google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
+			       
         };
 
         function error(err) {
@@ -56,8 +57,7 @@ $(document).ready(function() {
 		};
 
 		//TEST VARIABLES - SOUTH HALL
-		if (mylat == '') {
-			console.log("lat/long not set - using default of South Hall, UC Berkeley");			
+		if (mylat != '') {			
 			mylat = 37.8713;
 			mylong = -122.2585;
 		}
@@ -138,6 +138,13 @@ $(document).ready(function() {
 
 });
 
+function init() {
+
+
+}
+
+
+
 function createChart(businesses) {
 
 	// set up the svg 	
@@ -165,7 +172,6 @@ function createChart(businesses) {
     	thisBusiness.rating = businesses[i]["rating"];
     	thisBusiness.distance = businesses[i]["distance"];
     	thisBusiness.location.display_address = businesses[i]["location.display_address"];
-    	thisBusiness.distance = businesses[i]["distance"];
     	thisBusiness.image_url = businesses[i]["image_url"];
     	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
 
@@ -221,11 +227,12 @@ function createChart(businesses) {
 					$("#business-popup")
 						.css({
 							"left": $(this).position().left + 20,
-							"top": $(this).position().top - 100
+							"top": $(this).position().top - 100,
+							"height":150
 						})
 						// TO-DO - Enrich the text that is being returned in the pop-up
-						.html($(this).attr("name")+"<br><br>"+$(this).attr("distance")+" miles away"+"<br>"+"Avg Rating: "+$(this).attr("rating")+" Stars")
-						.fadeIn(50);
+						.html('<p>'+ $(this).attr("name")+'<br/><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><span class="glyphicon glyphicon-star"></span>'+' Avg Rating: '+$(this).attr("rating")+ ' Stars</p>')
+						.fadeIn(300);
 			})
 						
 		.on("mouseleave", function(d) {
@@ -265,7 +272,8 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
-		$("#business-results").append('<li>'+(j+1)+'. '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</li>');
+		$("#business-results").append('<li><a href="#"><span class="glyphicon glyphicon-cutlery"></span> '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</a></li>');
+
 	}
 	$("#business-results").append('<li>-----------------</li>');	
 }
@@ -275,33 +283,19 @@ function showBusinesses(myresults){
 var map;
 function mapsInitialize(lat, long, targetID) {
     var myLatlng = new google.maps.LatLng(lat, long);
+    
     var mapOptions = {
     	zoom: 14,
     	center: myLatlng,
     	mapTypeId: google.maps.MapTypeId.ROADMAP   
     };
+    
     map = new google.maps.Map(document.getElementById(targetID), mapOptions);
+    
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: map,
     });
 }
 
-// google geolocation code - to get address from lat/long coordinates
-var geocoder;
-var myaddress;
-function codeLatLng(mylat, mylong) {
-	geocoder = new google.maps.Geocoder();
-	var latlng = new google.maps.LatLng(mylat, mylong);
-	geocoder.geocode({'latLng': latlng}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			if (results[0]) {
-				myaddress = results[0].formatted_address;
-				$("#myaddress").html("Your (approximate) location:<br><span style='font-weight:bold;'>" + myaddress + "</span>");
-			}
-		} else {
-			$("#myaddress").html("Your coordinates:<br><span style='font-weight:bold;'>" + mylat + ", " + mylong + "</span>");
-		}
-	});
-}
 

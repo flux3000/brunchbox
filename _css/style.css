@@ -30,10 +30,6 @@ body {
     padding: 12px;
 }
 
-#myaddress {
-    padding: 12px;
-}
-
 #map-canvas {
     display:block; 
     height:150px; 
@@ -114,5 +110,25 @@ svg circle{
     stroke: black;
     stroke-width: 1;
     cursor: pointer;
+}
+
+#business-popup:before{
+    content: ' ';
+    display: block;
+    position: absolute;
+     left: -8px;
+     top: 15px;
+    width: 14px;
+     height: 14px;
+     border-color: #383838;
+    border-width: 1px;
+     border-style: none none solid solid;
+    background-color: #fff;
+     box-shadow: -2px 2px 3.5px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: -2px 2px 3.5px rgba(0, 0, 0, .5);
+    -moz-box-shadow: -2px 2px 3.5px rgba(0, 0, 0, .5);
+    transform: rotate(45deg);
+     -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
 }
 
