@@ -66,14 +66,30 @@ body {
     font-size:12pt;
     padding:12px; 
     left:0; 
-    height:100px;
-    width:300px; 
+    height:124px;
+    width:350px; 
     position:absolute; 
     text-align:center; 
     top:0; 
     z-index:100;
+    overflow: auto;
 }
 
+#business-popup .name{
+    font-size: 14pt;
+    font-weight: bold;
+}
+#business-popup .description{
+    font-size: 12pt;
+}
+#business-popup .img{
+    float: left;
+    width: 100px;
+}
+#business-popup .text{
+    float: left;
+    width: 200px;
+}
 
 fieldset{
     margin:0 auto; 
@@ -115,7 +131,8 @@ svg circle{
     cursor: pointer;
 }
 
-/*#business-popup:before{
+/*
+#business-popup:before{
     content: ' ';
     display: block;
     position: absolute;

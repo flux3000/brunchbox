@@ -20,8 +20,6 @@ $(document).ready(function() {
 
 		function success(pos) {
 			var crd = pos.coords;
-			
-			
 			mylat = crd.latitude;
 			mylong = crd.longitude;
 			mylatlong = [mylat, mylong];
@@ -132,19 +130,9 @@ $(document).ready(function() {
 		    });
 		  }
 	    });
-
-
 	});
 
-
-
 });
-
-function init() {
-
-
-}
-
 
 
 function createChart(businesses) {
@@ -173,9 +161,13 @@ function createChart(businesses) {
     	thisBusiness.name = businesses[i]["name"];
     	thisBusiness.rating = businesses[i]["rating"];
     	thisBusiness.distance = businesses[i]["distance"];
-    	thisBusiness.location = businesses[i]["location"];
+    	thisBusiness.display_address = businesses[i]["display_address"];
     	thisBusiness.image_url = businesses[i]["image_url"];
-    	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
+    	thisBusiness.rating_img_url = businesses[i]["rating_img_url"];
+    	thisBusiness.url = businesses[i]["url"];
+
+
+    	console.log(thisBusiness);
 
     	// Assign column and row positions (x and y coords)
     	if (col_pos > col_count) { 
@@ -217,24 +209,29 @@ function createChart(businesses) {
 		.attr("r", function (d) { return d.radius; })
 		.attr("name", function (d) { return d.name; })
 		.attr("distance", function (d) { return d.distance; })
+		.attr("street_address", function (d) { return d.street_address; })
+		.attr("city_state_zip", function (d) { return d.city_state_zip; })
+		.attr("image_url", function (d) { return d.image_url; })
 		.attr("rating", function (d) { return d.rating; })
+		.attr("rating_img_url", function (d) { return d.rating_img_url; })
+		.attr("url", function (d) { return d.url; })
 		.attr("class", "circle")
 		.style("fill", function(d) { return d.color; })
 		.on("mouseenter", function(d) {
 
-				d3.select(this)
-					.transition().duration(200)
-					.attr("r", d.radius+10)
-					.attr("opacity", .6);
-					$("#business-popup")
-						.css({
-							"left": $(this).position().left + 20,
-							"top": $(this).position().top - 100,
-							//"height":150
-						})
-						// TO-DO - Enrich the text that is being returned in the pop-up
-						.html('<p>'+ $(this).attr("name")+'<br/><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><span class="glyphicon glyphicon-star"></span>'+' Avg Rating: '+$(this).attr("rating")+ ' Stars</p>')
-						.fadeIn(300);
+			d3.select(this)
+				.transition().duration(200)
+				.attr("r", d.radius+10)
+				.attr("opacity", .6);
+				$("#business-popup")
+					.css({
+						"left": $(this).position().left + 30,
+						"top": $(this).position().top - 125,
+						//"height":150
+					})
+					// TO-DO - Enrich the text that is being returned in the pop-up
+					.html('<div class="img"><img src="' + $(this).attr("image_url") + '"></div><div class="text"><div class="name">'+ $(this).attr("name")+'</div><div class="description"><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><img src="'+$(this).attr("rating_img_url")+'" alt="'+$(this).attr("rating")+ ' Stars"></div></div>')
+					.fadeIn(300);			
 			})
 						
 		.on("mouseleave", function(d) {
@@ -243,7 +240,18 @@ function createChart(businesses) {
 					.attr("r", d.radius)
 					.attr("opacity", 1);
 					$("#business-popup").fadeOut(50);
+			})
+
+		.on("click", function(d) {
+			window.open($(this).attr("url"));
 			});
+
+	circles.append("image")
+	  .attr("xlink:href", "https://github.com/favicon.ico")
+	  .attr("x", -8)
+	  .attr("y", -8)
+	  .attr("width", 16)
+	  .attr("height", 16);
 }
 
 function returnBusinesses(businesses) {
@@ -255,6 +263,11 @@ function returnBusinesses(businesses) {
 			this_result["name"] = businesses[i]["name"];
 		    this_result["rating"] = businesses[i]["rating"];
 		    this_result["distance"] = ((businesses[i]["distance"]) * 0.000621371).toFixed(2);
+		    this_result["display_address"] = businesses[i]["location"]["display_address"];
+		    this_result["image_url"] = businesses[i]["image_url"];
+		    this_result["rating_img_url"] = businesses[i]["rating_img_url"];
+		    this_result["url"] = businesses[i]["url"];
+
 		    myresults.push(this_result);
 		}
 	}
