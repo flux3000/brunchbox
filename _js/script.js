@@ -139,7 +139,7 @@ function createChart(businesses) {
 
 	// set up the svg 	
 	var w = 900
-	var h = 500
+	var h = 400
 	var padding = 20
 
 	var col_count = 10
@@ -164,6 +164,7 @@ function createChart(businesses) {
     	thisBusiness.display_address = businesses[i]["display_address"];
     	thisBusiness.image_url = businesses[i]["image_url"];
     	thisBusiness.rating_img_url = businesses[i]["rating_img_url"];
+    	thisBusiness.rating_img_url_small = businesses[i]["rating_img_url_small"];
     	thisBusiness.url = businesses[i]["url"];
 
 
@@ -214,6 +215,7 @@ function createChart(businesses) {
 		.attr("image_url", function (d) { return d.image_url; })
 		.attr("rating", function (d) { return d.rating; })
 		.attr("rating_img_url", function (d) { return d.rating_img_url; })
+		.attr("rating_img_url_small", function (d) { return d.rating_img_url_small; })
 		.attr("url", function (d) { return d.url; })
 		.attr("class", "circle")
 		.style("fill", function(d) { return d.color; })
@@ -266,6 +268,7 @@ function returnBusinesses(businesses) {
 		    this_result["display_address"] = businesses[i]["location"]["display_address"];
 		    this_result["image_url"] = businesses[i]["image_url"];
 		    this_result["rating_img_url"] = businesses[i]["rating_img_url"];
+		    this_result["rating_img_url_small"] = businesses[i]["rating_img_url_small"];
 		    this_result["url"] = businesses[i]["url"];
 
 		    myresults.push(this_result);
@@ -287,7 +290,7 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
-		$("#business-results").append('<li><a href="#"><span class="glyphicon glyphicon-cutlery"></span> '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</a></li>');
+		$("#business-results").append('<li><a href="'+myresults[j]["url"]+'"><span class="glyphicon glyphicon-cutlery"></span> <span style="font-weight:bold;">'+myresults[j]["name"]+'</span> <img style="padding:0px 4px;" src="'+myresults[j]["rating_img_url_small"]+'"> Distance: '+myresults[j]["distance"]+' Miles</a></li>');
 
 	}
 	$("#business-results").append('<li>-----------------</li>');	
