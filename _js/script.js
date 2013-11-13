@@ -184,10 +184,10 @@ function createChart(businesses) {
     	thisBusiness.radius = (24 - thisBusiness.distance*3.5);
 
     	// Calculate circle color - based on rating
-    	var hue = Math.floor(thisBusiness.rating * 120 / 5);
+    	var hue = Math.floor(thisBusiness.rating * 270 / 5);
     	var multiplier = Math.pow((5 - thisBusiness.rating),2);
     	var intensity = (100 - (Math.round(multiplier * 2)/2) * 10);
-    	var bright = 50 + ((Math.pow(multiplier,2) * 2.5));
+    	var bright = 50 + ((Math.pow(multiplier,2) * 2.75));
     	thisBusiness.color = "hsla(" + hue + ", " + intensity + "%, " + bright + "%, 1)";
 
     	myBusinesses.push(thisBusiness);
