@@ -273,7 +273,8 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
-		$("#business-results").append('<li>'+(j+1)+'. '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</li>');
+		$("#business-results").append('<li><a href="#"><span class="glyphicon glyphicon-cutlery"></span> '+myresults[j]["name"]+' - Distance: '+myresults[j]["distance"]+' Miles - Avg Rating: '+myresults[j]["rating"]+'</a></li>');
+
 	}
 	$("#business-results").append('<li>-----------------</li>');	
 }
