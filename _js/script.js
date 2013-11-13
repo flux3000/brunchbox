@@ -1,7 +1,4 @@
-//var mybusinesses;
-
 $(document).ready(function() {
-	//init();
 
 	$('#radius').change(function() {
 		var rangeval = parseFloat($(this).val()).toFixed(1);
@@ -26,9 +23,7 @@ $(document).ready(function() {
 
             // get human-readable address from the lat/long coordinates using Google's reverse geocoding API
             codeLatLng(mylat, mylong)
-
-            //google.maps.event.addDomListener(window, 'load', mapsInitialize(mylatlong[0], mylatlong[1], "map-canvas"));    
-			       
+		       
         };
 
         function error(err) {
@@ -71,12 +66,10 @@ $(document).ready(function() {
 		};
 
 		parameters = [];
-
 		parameters.push(['ll', mylat+','+mylong]);
 		parameters.push(['radius_filter', distance_meters]);
 		parameters.push(['category_filter', "breakfast_brunch"]);
 		parameters.push(['sort', 2]); // 1=distance, 2=highest rating
-
 		parameters.push(['callback', 'cb']);
 		parameters.push(['oauth_consumer_key', auth.consumerKey]);
 		parameters.push(['oauth_consumer_secret', auth.consumerSecret]);
@@ -131,7 +124,6 @@ $(document).ready(function() {
 		  }
 	    });
 	});
-
 });
 
 
@@ -141,15 +133,10 @@ function createChart(businesses) {
 	var w = 900
 	var h = 400
 	var padding = 20
-
 	var col_count = 10
 	var row_count = 4
-	//var col_width = (w-padding) / col_count
-	//var row_height = (h-padding) / row_count
 	var col_width = 80
 	var row_height = 80
-
-	//viz.attr("width", w).attr("height", h)
 
     // Make JSON
 	myBusinesses = [];
@@ -182,7 +169,7 @@ function createChart(businesses) {
 
     	// Calculate circle radius - based on distance
 
-    	thisBusiness.radius = (24 - thisBusiness.distance*3.5);
+    	thisBusiness.radius = (28 - thisBusiness.distance*4);
 
     	// Calculate circle color - based on rating
     	var hue = Math.floor(thisBusiness.rating * 270 / 5);
@@ -231,7 +218,6 @@ function createChart(businesses) {
 						"top": $(this).position().top - 125,
 						//"height":150
 					})
-					// TO-DO - Enrich the text that is being returned in the pop-up
 					.html('<div class="img"><img src="' + $(this).attr("image_url") + '"></div><div class="text"><div class="name">'+ $(this).attr("name")+'</div><div class="description"><span class="glyphicon glyphicon-map-marker"></span>'+$(this).attr("distance")+' miles away'+'<br/><img src="'+$(this).attr("rating_img_url")+'" alt="'+$(this).attr("rating")+ ' Stars"></div></div>')
 					.fadeIn(300);			
 			})
@@ -290,14 +276,13 @@ function returnBusinesses(businesses) {
 
 function showBusinesses(myresults){
 	for (var j = 0; j < myresults.length; j++) {
-		$("#business-results").append('<li><a href="'+myresults[j]["url"]+'"><span class="glyphicon glyphicon-cutlery"></span> <span style="font-weight:bold;">'+myresults[j]["name"]+'</span> <img style="padding:0px 4px;" src="'+myresults[j]["rating_img_url_small"]+'"> Distance: '+myresults[j]["distance"]+' Miles</a></li>');
+		$("#business-results").append('<li><a target="_new" href="'+myresults[j]["url"]+'"><span class="glyphicon glyphicon-cutlery"></span> <span style="font-weight:bold;">'+myresults[j]["name"]+'</span> <img style="padding:0px 4px;" src="'+myresults[j]["rating_img_url_small"]+'"> Distance: '+myresults[j]["distance"]+' Miles</a></li>');
 
 	}
 	$("#business-results").append('<li>-----------------</li>');	
 }
 
-
-// google maps code
+/*// google maps code
 var map;
 function mapsInitialize(lat, long, targetID) {
     var myLatlng = new google.maps.LatLng(lat, long);
@@ -315,7 +300,7 @@ function mapsInitialize(lat, long, targetID) {
         map: map,
     });
 }
-
+*/
 // google geolocation code - to get address from lat/long coordinates
 var geocoder;
 var myaddress;
